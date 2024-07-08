@@ -42,7 +42,7 @@ router.get("/projects", async (req, res) => {
 // GET 
 // projects
 // **
-router.get("/add-project", async (req, res) => {
+router.get("/add-project", authMiddleware, async (req, res) => {
 
     try {
         const locals = {
@@ -164,7 +164,7 @@ router.put("/edit-project/:id", authMiddleware, async (req, res) => {
  * DELETE/
  * EDIT-POST
  */
-router.delete("/delete-project/:id", async (req, res) => {
+router.delete("/delete-project/:id", authMiddleware, async (req, res) => {
     try {
         await Project.deleteOne({ _id: req.params.id });
         res.redirect('/projects')
