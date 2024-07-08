@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post')
+const Project = require('../models/Project')
+
 
 router.get('', async (req, res) => {
     try {
@@ -164,5 +166,18 @@ router.get("/contact", (req, res) => {
 // }
 
 // insertPostData();
+
+
+// here is the project RESTFUls
+
+
+// })
+//** 
+// get
+// for individual post
+//**
+
+
+
 
 module.exports = router;
