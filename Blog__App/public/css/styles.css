@@ -441,4 +441,18 @@ textarea {
     width: 600px;
     height: 450px;
     border-radius: 5px;
+    object-fit: cover;
+}
+
+.contactHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.linkdin,
+.github {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
