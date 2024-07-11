@@ -1,0 +1,16 @@
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const blogRouter = require('./controllers/blogRouter')
+const connectDB = require('./models/config/db')
+const config = require('./utils/config')
+const middlewares = require('./utils/middlewares')
+app.use(cors())
+app.use(express.json())
+connectDB()
+app.use(middlewares.requestLogger)
+app.use('/api/blogs', blogRouter)
+app.use(middlewares.unknownEndpoint)
+app.use(middlewares.errorHandler)
+
+module.exports = app
