@@ -3,21 +3,28 @@ const Blog = require('../models/schema/blog')
 const User = require('../models/schema/user')
 const jwt = require('jsonwebtoken')
 
-const getTokenFrom = (request) => {
+const tokenExtractor = (request, response, next) => {
     let authorization = request.get('authorization')
     if (authorization && authorization.startsWith('Bearer ')) {
-        return authorization.replace('Bearer ', "")
+        request.token = authorization.replace('Bearer ', "")
     }
-    return null
+    next()
 }
+// const getTokenFrom = (request) => {
+//     let authorization = request.get('authorization')
+//     if (authorization && authorization.startsWith('Bearer ')) {
+//         return authorization.replace('Bearer ', "")
+//     }
+//     return null
+// }
 
 blogRouter.get('/', async (request, response) => {
     const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
     response.json(blogs)
 })
 
-blogRouter.post('/', async (request, response) => {
-    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+blogRouter.post('/', tokenExtractor, async (request, response) => {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
     if (!decodedToken.id) {
         response.status(401).json({ error: 'token invalid' })
@@ -56,10 +63,22 @@ blogRouter.put('/:id', async (request, response, error) => {
     } catch (error) {
         next(error)
     }
-
-
-
-
 })
+
+blogRouter.delete('/:id', tokenExtractor, async (request, response) => {
+    const { id } = request.params
+    const blogToDelete = await Blog.findById(id)
+    const userId = blogToDelete.user
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if (userId.toString === decodedToken.id.toString) {
+        await Blog.deleteOne({ _id: id })
+        response.status(203).end()
+    }
+    response.status(400).json({ error: "different user" })
+})
+
+
+
+
 
 module.exports = blogRouter
