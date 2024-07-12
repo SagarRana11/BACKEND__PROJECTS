@@ -24,12 +24,12 @@ blogRouter.get('/', async (request, response) => {
 })
 
 blogRouter.post('/', tokenExtractor, async (request, response) => {
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    // const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
-    if (!decodedToken.id) {
-        response.status(401).json({ error: 'token invalid' })
-    }
-    const user = await User.findById(decodedToken.id)
+    // if (!decodedToken.id) {
+    //     response.status(401).json({ error: 'token invalid' })
+    // }
+    const user = await request.user
 
     const body = request.body
     if (!body.title || !body.url) {

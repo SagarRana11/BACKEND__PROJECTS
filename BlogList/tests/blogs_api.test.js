@@ -5,6 +5,16 @@ const { test, describe, after, beforeEach } = require('node:test')
 const assert = require('node:assert')
 const api = supertest(app)
 const Blog = require('../models/schema/blog')
+const jwt = require('jsonwebtoken')
+const User = require('../models/schema/user')
+const helper = require('./test_helper')
+
+const userForTest = {
+    username: "sagar",
+    name: "ssgar",
+    password: "@sagar"
+}
+let token;
 
 const initialBlogs = [{
     title: "I love programming",
@@ -22,11 +32,20 @@ const initialBlogs = [{
 
 beforeEach(async () => {
     await Blog.deleteMany()
+    await User.deleteMany()
     initialBlogs.forEach(blog => {
         const BlogObject = new Blog(blog)
         BlogObject.save()
     })
+    await api
+        .post('/api/users')
+        .send(userForTest)
 
+    const response = await api
+        .post('/api/login')
+        .send(userForTest)
+
+    token = response.body.token
 })
 
 test("returned blogs are in JSON format", async () => {
@@ -57,21 +76,32 @@ test('there is a unique identifier', async () => {
     assert.deepStrictEqual(BlogToCheck.id, id)
 })
 test('a new Blog can be added', async () => {
+
+
+
     const newBlog = {
         title: "this blog is for post trial",
         author: "Mr Tester",
         url: "newBlog.com",
         likes: 10,
     }
-    await api
+    const postResponse = await api
         .post('/api/blogs')
+        .set('authorization', `Bearer ${token}`)
         .send(newBlog)
-        .expect(201)
+        .expect(203)
+    assert.strictEqual(postResponse.body.title, newBlog.title)
+    assert.strictEqual(postResponse.body.author, newBlog.author)
+    assert.strictEqual(postResponse.body.url, newBlog.url)
+    assert.strictEqual(postResponse.body.likes, newBlog.likes)
 
-    const allBlogs = await api.get('/api/blogs')
-    const contents = allBlogs.body.map(blog => blog.title)
-    assert.strictEqual(allBlogs.body.length, initialBlogs.length + 1)
-    assert.strictEqual(contents.includes("this blog is for post trial"), true)
+    await api.get('/api/blogs')
+
+    const blogsAtEnd = await helper.blogsInDb()
+
+    const titles = blogsAtEnd.map(blog => blog.title)
+
+    assert(titles.includes('this blog is for post trial'))
 })
 
 test('a new Blog added without likes has 0 likes by default', async () => {
