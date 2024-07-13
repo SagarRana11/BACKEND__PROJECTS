@@ -19,6 +19,10 @@ const App = () => {
   const [author , setAuthor] = useState('')
   const [url , setUrl] = useState('')
   const [errorMessage, setErrorMessage] =useState(null)
+  const [loginVisible, setLoginVisible] = useState(false)
+  const [createVisible, setCreateVisible] = useState(false)
+
+
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -39,13 +43,61 @@ const App = () => {
     setUser(null)
   }
   console.log("user", user)
+  const loginForm = ()=>{
+    const hideWhenVisible = {display: loginVisible?'none':''}
+    const showWhenVisible = {display:loginVisible?'':'none'}
+
+    return(
+      <div>
+          <div className='loginDiv' style={hideWhenVisible }>
+            <h2>Log in to read the blogs</h2>
+            <button onClick={()=>setLoginVisible(true)}>log in</button>
+          </div>
+          <div style={showWhenVisible}>
+           <LoginForm username={username} setUsername={setUsername} password={password} setPassword={setPassword} user={user} setUser ={setUser} />
+          </div>
+       
+      </div> 
+    )
+  }
+
+  const createForm = ()=>{
+    const hideWhenVisible = {display: createVisible?'none':''}
+    const showWhenVisible = {display:createVisible?'':'none'}
+
+    return(
+      <div>
+          <div style={hideWhenVisible}>
+            
+            <button onClick={()=>setCreateVisible(true)}>Create new blog +</button>
+          </div>
+          <div style={showWhenVisible}>
+            <CreateForm 
+              title={title} 
+              author={author}
+              url={url}
+              setTitle={setTitle}
+              setAuthor={setAuthor}
+              setUrl={setUrl} 
+              blogs={blogs}
+              setBlogs={setBlogs} 
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          </div>
+       
+      </div> 
+    )
+  }
+
+
 
   return (
     <div>
       {errorMessage !== null && <Notification errorMessage={errorMessage} />}
       
       {user === null 
-      ? <LoginForm username={username} setUsername={setUsername} password={password} setPassword={setPassword} user={user} setUser ={setUser} /> 
+      ? loginForm() 
       : (
         <> 
           <header>
@@ -54,18 +106,7 @@ const App = () => {
           </header>
           
           <h1>Blogs</h1>
-          <CreateForm 
-            title={title} 
-            author={author}
-            url={url}
-            setTitle={setTitle}
-            setAuthor={setAuthor}
-            setUrl={setUrl} 
-            blogs={blogs}
-            setBlogs={setBlogs} 
-            errorMessage={errorMessage}
-            setErrorMessage={setErrorMessage}
-          />
+          {createForm()}
           {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} />)}
 

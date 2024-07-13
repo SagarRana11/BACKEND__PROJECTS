@@ -36,8 +36,9 @@ const CreateForm = (props) => {
 
     return (
     <div>
-         <h2>Create new Blog</h2>
       <form className='createForm' onSubmit={handleSubmit}>
+      <h2>Create new Blog</h2>
+
         
         <div>
             <p> Title </p>
@@ -56,7 +57,7 @@ const CreateForm = (props) => {
         </div>
         
 
-        <button className='loginBtn' type='submit'>Create</button>
+        <button className='loginBtn' type='submit'>Add</button>
       </form>
     </div>
   )

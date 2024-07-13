@@ -4,6 +4,7 @@ import BlogServices from '../services/blogs'
 
 const LoginForm = (props) => {
     const {username , password, setUsername , setPassword, user ,setUser} = props
+
     const handleLogin = async (e)=>{ 
         e.preventDefault()
         console.log('inside handleLogins')
@@ -18,10 +19,7 @@ const LoginForm = (props) => {
 
             setUsername('')
             setPassword('')  
-            // setErrorMessage(`user ${returnedUser.username} logged in`)
-            // setTimeout(()=>{
-            //    setErrorMessage(null)
-            // },5000)
+
       }catch(exception){
           console.log(exception)
       }
