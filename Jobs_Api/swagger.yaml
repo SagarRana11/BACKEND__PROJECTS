@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  version: '1.0'
+servers:
+  - url: http://localhost:4444/api/v1
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      operationId: RegisterUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful registration
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful login
+  /jobs:
+    post:
+      tags:
+        - Jobs
+      summary: Create Job
+      operationId: CreateJobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+        required: true
+      responses:
+        '200':
+          description: Job created
+    get:
+      tags:
+        - Jobs
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      responses:
+        '200':
+          description: A list of jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
+      security:
+        - bearer: []
+  /jobs/{id}:
+    delete:
+      tags:
+        - Jobs
+      summary: Delete Job
+      operationId: DeleteJob
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job deleted
+      security:
+        - bearer: []
+    put:
+      tags:
+        - Jobs
+      summary: Update Job
+      operationId: UpdateJob
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateJobRequest'
+        required: true
+      responses:
+        '200':
+          description: Job updated
+      security:
+        - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: sagar
+        email: ranasagar974@gmail.com
+        password: '@ranasagar'
+    LoginUserRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: ranasagar974@gmail.com
+        password: anything
+    JobRequest:
+      type: object
+      required:
+        - company
+        - position
+        - status
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: mazadonn
+        position: full stack developer
+        status: pending
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+    UpdateJobRequest:
+      type: object
+      required:
+        - company
+        - position
+        - status
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: mazadonn
+        position: full stack developer
+        status: pending
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+tags:
+  - name: Auth
+    description: Operations related to user authentication
+  - name: Jobs
+    description: Operations related to job management
