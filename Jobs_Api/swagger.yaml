@@ -1,118 +1,151 @@
 openapi: 3.0.0
 info:
-  title: Jobs API
+  title: Jobs_Api
   version: '1.0'
 servers:
-  - url: http://localhost:4444/api/v1
+- url: https://backend-projects-fcqt.onrender.com/api/v1
 paths:
   /auth/register:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Register User
       operationId: RegisterUser
       requestBody:
+        description: Register a new user
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RegisterUserRequest'
-        required: true
+            example:
+              name: sagar
+              email: ranasagar974@gmail.com
+              password: '@ranasagar'
       responses:
         '200':
-          description: Successful registration
+          description: User registered successfully
+      security: []
   /auth/login:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Login User
       operationId: LoginUser
       requestBody:
+        description: Login an existing user
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LoginUserRequest'
-        required: true
+            example:
+              email: ranasagar974@gmail.com
+              password: anything
       responses:
         '200':
-          description: Successful login
+          description: User logged in successfully
+      security: []
   /jobs:
     post:
       tags:
-        - Jobs
+      - jobs
       summary: Create Job
-      operationId: CreateJobs
+      operationId: CreateJob
       requestBody:
+        description: Create a new job
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/JobRequest'
-        required: true
+              $ref: '#/components/schemas/CreateJobRequest'
+            example:
+              company: mazadonn
+              position: full stack developer
+              status: pending
       responses:
         '200':
-          description: Job created
+          description: Job created successfully
+      security:
+      - bearer: []
     get:
       tags:
-        - Jobs
+      - jobs
       summary: Get All Jobs
       operationId: GetAllJobs
       responses:
         '200':
-          description: A list of jobs
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Job'
+          description: A list of all jobs
       security:
-        - bearer: []
+      - bearer: []
   /jobs/{id}:
     delete:
       tags:
-        - Jobs
+      - jobs
       summary: Delete Job
       operationId: DeleteJob
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: Job deleted
+          description: Job deleted successfully
       security:
-        - bearer: []
+      - bearer: []
     put:
       tags:
-        - Jobs
+      - jobs
       summary: Update Job
       operationId: UpdateJob
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
       requestBody:
+        description: Update an existing job
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateJobRequest'
-        required: true
+            example:
+              company: mazadonn
+              position: full stack developer
+              status: pending
       responses:
         '200':
-          description: Job updated
+          description: Job updated successfully
       security:
-        - bearer: []
+      - bearer: []
+    get:
+      tags:
+      - jobs
+      summary: Get Job
+      operationId: GetJob
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A single job detail
+      security:
+      - bearer: []
 components:
   schemas:
     RegisterUserRequest:
       type: object
       required:
-        - name
-        - email
-        - password
+      - name
+      - email
+      - password
       properties:
         name:
           type: string
@@ -120,45 +153,23 @@ components:
           type: string
         password:
           type: string
-      example:
-        name: sagar
-        email: ranasagar974@gmail.com
-        password: '@ranasagar'
     LoginUserRequest:
       type: object
       required:
-        - email
-        - password
+      - email
+      - password
       properties:
         email:
           type: string
         password:
           type: string
-      example:
-        email: ranasagar974@gmail.com
-        password: anything
-    JobRequest:
+    CreateJobRequest:
       type: object
       required:
-        - company
-        - position
-        - status
+      - company
+      - position
+      - status
       properties:
-        company:
-          type: string
-        position:
-          type: string
-        status:
-          type: string
-      example:
-        company: mazadonn
-        position: full stack developer
-        status: pending
-    Job:
-      type: object
-      properties:
-        id:
-          type: string
         company:
           type: string
         position:
@@ -168,9 +179,9 @@ components:
     UpdateJobRequest:
       type: object
       required:
-        - company
-        - position
-        - status
+      - company
+      - position
+      - status
       properties:
         company:
           type: string
@@ -178,16 +189,13 @@ components:
           type: string
         status:
           type: string
-      example:
-        company: mazadonn
-        position: full stack developer
-        status: pending
   securitySchemes:
     bearer:
       type: http
       scheme: bearer
+security: []
 tags:
-  - name: Auth
-    description: Operations related to user authentication
-  - name: Jobs
-    description: Operations related to job management
+- name: Auth
+  description: Endpoints related to authentication
+- name: jobs
+  description: Endpoints related to job management
