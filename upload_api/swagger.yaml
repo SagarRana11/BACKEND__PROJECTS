@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: product_API
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://localhost:4000/api/v1/products
+  variables: {}
+paths:
+  /uploads:
+    post:
+      tags:
+      - Upload
+      summary: Upload image
+      operationId: Uploadimage
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          enum:
+          - multipart/form-data
+          type: string
+          example: multipart/form-data
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - image
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /:
+    get:
+      tags:
+      - Product
+      summary: Get All Products
+      operationId: GetAllProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Product
+      summary: Create New Product
+      operationId: CreateNewProduct
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateNewProductRequest'
+              - example:
+                  name: backend project
+                  price: 190
+                  image: /uploads/Screenshot (196).png
+            example:
+              name: backend project
+              price: 190
+              image: /uploads/Screenshot (196).png
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    CreateNewProductRequest:
+      title: CreateNewProductRequest
+      required:
+      - name
+      - price
+      - image
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        image:
+          type: string
+      example:
+        name: backend project
+        price: 190
+        image: /uploads/Screenshot (196).png
+tags:
+
+- name: Upload
+  description: ''
+- name: Product
+  description: ''
