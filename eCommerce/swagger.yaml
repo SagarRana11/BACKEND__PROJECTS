@@ -1,0 +1,710 @@
+openapi: 3.0.0
+info:
+  title: eCommerce
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://localhost:5000/api/v1/auth
+  variables: {}
+- url: http://example.com
+  variables: {}
+paths:
+  /register:
+    post:
+      tags:
+      - Register User
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: sagar
+                  email: ranasagar974@gmail.com
+                  password: '@sagarrana119'
+            example:
+              name: sagar
+              email: ranasagar974@gmail.com
+              password: '@sagarrana119'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1/auth
+        variables: {}
+  /verify-email:
+    post:
+      tags:
+      - Register User
+      summary: Email Verification
+      operationId: EmailVerification
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/EmailVerificationRequest'
+              - example:
+                  verificationToken: 37151d0dc3bd37cb9f79fe82528b24fdebffc43e181806ffac145332dece993ea54f74f65e37a8af
+                  email: ranasagar974@gmail.com
+            example:
+              verificationToken: 37151d0dc3bd37cb9f79fe82528b24fdebffc43e181806ffac145332dece993ea54f74f65e37a8af
+              email: ranasagar974@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1/auth
+        variables: {}
+  /reset-password:
+    post:
+      tags:
+      - Login
+      summary: reset-Password
+      operationId: reset-Password
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/reset-Password-Request'
+              - example:
+                  token: ccd7aa07c123a31bf009530d771ed13693515b537c58cfd742a1532ecff5685c7463889da061e37be8b6496fc4ed00f18b80b79d33ee22068e02eadb2afe06cee6c49dfdc214
+                  email: ranasagar974@gmail.com
+                  password: newpassword
+            example:
+              token: ccd7aa07c123a31bf009530d771ed13693515b537c58cfd742a1532ecff5685c7463889da061e37be8b6496fc4ed00f18b80b79d33ee22068e02eadb2afe06cee6c49dfdc214
+              email: ranasagar974@gmail.com
+              password: newpassword
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://localhost:5000/api/v1/auth
+        variables: {}
+  /forgot-password:
+    post:
+      tags:
+      - Login
+      summary: forgot-Password
+      operationId: forgot-Password
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/forgot-Password-Request'
+              - example:
+                  email: ranasagar974@gmail.com
+            example:
+              email: ranasagar974@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://localhost:5000/api/v1/auth
+        variables: {}
+  /login:
+    post:
+      tags:
+      - Login
+      summary: User Login
+      operationId: UserLogin
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserLoginRequest'
+              - example:
+                  email: ranasagar974@gmail.com
+                  password: newpassword
+            example:
+              email: ranasagar974@gmail.com
+              password: newpassword
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://localhost:5000/api/v1/auth
+        variables: {}
+  /users/showme:
+    get:
+      tags:
+      - Login
+      summary: Show Current User
+      operationId: ShowCurrentUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1/
+        variables: {}
+  /products:
+    post:
+      tags:
+      - Product
+      summary: Create New Product
+      operationId: CreateNewProduct
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateNewProductRequest'
+              - example:
+                  name: lamp
+                  price: 10
+                  description: this is a study lamp
+                  category: office
+                  company: ikea
+                  user: 66a51797dbcb6df8f67137cc
+            example:
+              name: lamp
+              price: 10
+              description: this is a study lamp
+              category: office
+              company: ikea
+              user: 66a51797dbcb6df8f67137cc
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1
+        variables: {}
+    get:
+      tags:
+      - Product
+      summary: Get All Products
+      operationId: GetAllProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1
+        variables: {}
+  /products/66a52254165c51073d816769:
+    get:
+      tags:
+      - Product
+      summary: Get One Product
+      operationId: GetOneProduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+  /reviews:
+    post:
+      tags:
+      - Review
+      summary: Create New Review
+      operationId: CreateNewReview
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateNewReviewRequest'
+              - example:
+                  rating: 3
+                  title: Lamp review
+                  comment: paisa vasool
+                  user: 66a51797dbcb6df8f67137cc
+                  product: 66a52254165c51073d816769
+            example:
+              rating: 3
+              title: Lamp review
+              comment: paisa vasool
+              user: 66a51797dbcb6df8f67137cc
+              product: 66a52254165c51073d816769
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1
+        variables: {}
+    get:
+      tags:
+      - Review
+      summary: Get All Reviews
+      operationId: GetAllReviews
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+  /reviews/66a528a8e61773232f5ef95c:
+    get:
+      tags:
+      - Review
+      summary: Get Single Review
+      operationId: GetSingleReview
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://localhost:5000/api/v1
+        variables: {}
+    delete:
+      tags:
+      - Review
+      summary: Delete a Review
+      operationId: DeleteaReview
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+  /orders:
+    post:
+      tags:
+      - Order
+      summary: Create New Order
+      operationId: CreateNewOrder
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateNewOrderRequest'
+              - example:
+                  items:
+                  - product: 66a522dc5b5bb3a46a3baac4
+                    amount: 2
+                  tax: 500
+                  shippingFee: 500
+            example:
+              items:
+              - product: 66a522dc5b5bb3a46a3baac4
+                amount: 2
+              tax: 500
+              shippingFee: 500
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Order
+      summary: Get All Orders
+      operationId: GetAllOrders
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+  /orders/66a52e61c0edbf3cd7b74871:
+    get:
+      tags:
+      - Order
+      summary: Get Single Order
+      operationId: GetSingleOrder
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+    patch:
+      tags:
+      - Order
+      summary: Update an Order
+      operationId: UpdateanOrder
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateanOrderRequest'
+              - example:
+                  tax: 900
+                  shippingFee: 1000
+                  subtotal: 20
+                  total: 1020
+                  orderItems:
+                  - name: lamp
+                    image: /uploads/example.jppeg
+                    price: 10
+                    amount: 2
+                    product: 66a522dc5b5bb3a46a3baac4
+                    _id: 66a52e61c0edbf3cd7b74872
+                  status: pending
+                  user: 66a51797dbcb6df8f67137cc
+            example:
+              tax: 900
+              shippingFee: 1000
+              subtotal: 20
+              total: 1020
+              orderItems:
+              - name: lamp
+                image: /uploads/example.jppeg
+                price: 10
+                amount: 2
+                product: 66a522dc5b5bb3a46a3baac4
+                _id: 66a52e61c0edbf3cd7b74872
+              status: pending
+              user: 66a51797dbcb6df8f67137cc
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: http://example.com
+        variables: {}
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: sagar
+        email: ranasagar974@gmail.com
+        password: '@sagarrana119'
+    EmailVerificationRequest:
+      title: EmailVerificationRequest
+      required:
+      - verificationToken
+      - email
+      type: object
+      properties:
+        verificationToken:
+          type: string
+        email:
+          type: string
+      example:
+        verificationToken: 37151d0dc3bd37cb9f79fe82528b24fdebffc43e181806ffac145332dece993ea54f74f65e37a8af
+        email: ranasagar974@gmail.com
+    reset-Password-Request:
+      title: reset-Password-Request
+      required:
+      - token
+      - email
+      - password
+      type: object
+      properties:
+        token:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        token: ccd7aa07c123a31bf009530d771ed13693515b537c58cfd742a1532ecff5685c7463889da061e37be8b6496fc4ed00f18b80b79d33ee22068e02eadb2afe06cee6c49dfdc214
+        email: ranasagar974@gmail.com
+        password: newpassword
+    forgot-Password-Request:
+      title: forgot-Password-Request
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: ranasagar974@gmail.com
+    UserLoginRequest:
+      title: UserLoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: ranasagar974@gmail.com
+        password: newpassword
+    CreateNewProductRequest:
+      title: CreateNewProductRequest
+      required:
+      - name
+      - price
+      - description
+      - category
+      - company
+      - user
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        description:
+          type: string
+        category:
+          type: string
+        company:
+          type: string
+        user:
+          type: string
+      example:
+        name: lamp
+        price: 10
+        description: this is a study lamp
+        category: office
+        company: ikea
+        user: 66a51797dbcb6df8f67137cc
+    CreateNewReviewRequest:
+      title: CreateNewReviewRequest
+      required:
+      - rating
+      - title
+      - comment
+      - user
+      - product
+      type: object
+      properties:
+        rating:
+          type: integer
+          format: int32
+        title:
+          type: string
+        comment:
+          type: string
+        user:
+          type: string
+        product:
+          type: string
+      example:
+        rating: 3
+        title: Lamp review
+        comment: paisa vasool
+        user: 66a51797dbcb6df8f67137cc
+        product: 66a52254165c51073d816769
+    CreateNewOrderRequest:
+      title: CreateNewOrderRequest
+      required:
+      - items
+      - tax
+      - shippingFee
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+          description: ''
+        tax:
+          type: integer
+          format: int32
+        shippingFee:
+          type: integer
+          format: int32
+      example:
+        items:
+        - product: 66a522dc5b5bb3a46a3baac4
+          amount: 2
+        tax: 500
+        shippingFee: 500
+    Item:
+      title: Item
+      required:
+      - product
+      - amount
+      type: object
+      properties:
+        product:
+          type: string
+        amount:
+          type: integer
+          format: int32
+      example:
+        product: 66a522dc5b5bb3a46a3baac4
+        amount: 2
+    UpdateanOrderRequest:
+      title: UpdateanOrderRequest
+      required:
+      - tax
+      - shippingFee
+      - subtotal
+      - total
+      - orderItems
+      - status
+      - user
+      type: object
+      properties:
+        tax:
+          type: integer
+          format: int32
+        shippingFee:
+          type: integer
+          format: int32
+        subtotal:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+          description: ''
+        status:
+          type: string
+        user:
+          type: string
+      example:
+        tax: 900
+        shippingFee: 1000
+        subtotal: 20
+        total: 1020
+        orderItems:
+        - name: lamp
+          image: /uploads/example.jppeg
+          price: 10
+          amount: 2
+          product: 66a522dc5b5bb3a46a3baac4
+          _id: 66a52e61c0edbf3cd7b74872
+        status: pending
+        user: 66a51797dbcb6df8f67137cc
+    OrderItem:
+      title: OrderItem
+      required:
+      - name
+      - image
+      - price
+      - amount
+      - product
+      - _id
+      type: object
+      properties:
+        name:
+          type: string
+        image:
+          type: string
+        price:
+          type: integer
+          format: int32
+        amount:
+          type: integer
+          format: int32
+        product:
+          type: string
+        _id:
+          type: string
+      example:
+        name: lamp
+        image: /uploads/example.jppeg
+        price: 10
+        amount: 2
+        product: 66a522dc5b5bb3a46a3baac4
+        _id: 66a52e61c0edbf3cd7b74872
+tags:
+
+- name: Register User
+  description: ''
+- name: Login
+  description: ''
+- name: Product
+  description: ''
+- name: Review
+  description: ''
+- name: Order
+  description: ''
