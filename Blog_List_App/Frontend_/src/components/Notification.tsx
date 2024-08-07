@@ -4,7 +4,7 @@ const Notification = (props) => {
     const {errorMessage} = props
   return (
     <div>
-      <h1>{errorMessage}</h1>
+      <h2>{errorMessage}</h2>
     </div>
   )
 }

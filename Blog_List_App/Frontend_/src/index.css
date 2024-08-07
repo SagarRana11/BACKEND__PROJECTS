@@ -143,9 +143,11 @@ h2 {
 }
 
 .blogDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #94c4f1;
     color: #080808;
-    height: 25px;
     margin-bottom: 2px;
     border-radius: 2px;
     transition: all 0.4s;
@@ -158,4 +160,16 @@ h2 {
 .loginDiv {
     display: flex;
     flex-direction: column;
+}
+
+.blogHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.deleteBtn {
+    background-color: rgb(252, 99, 99);
+    color: #080808;
 }

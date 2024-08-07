@@ -1,7 +1,6 @@
 require('dotenv').config()
 require('express-async-errors')
 
-
 // extra security packages
 const helmet = require('helmet')
 const cors = require('cors')
@@ -32,10 +31,24 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 app.use(express.static('./public'))
 
 app.use(express.json());
-app.use(helmet())
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+                "'self'",
+                'https://cdnjs.cloudflare.com', // Allow scripts from this domain
+            ],
+            // Add other directives if needed
+        },
+    })
+);
 app.use(cors())
 app.use(xss())
 app.use(fileUpload({ useTempFiles: true }));
+
+
+
 
 //swagger route
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))

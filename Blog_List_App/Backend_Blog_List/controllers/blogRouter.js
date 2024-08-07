@@ -10,25 +10,15 @@ const tokenExtractor = (request, response, next) => {
     }
     next()
 }
-// const getTokenFrom = (request) => {
-//     let authorization = request.get('authorization')
-//     if (authorization && authorization.startsWith('Bearer ')) {
-//         return authorization.replace('Bearer ', "")
-//     }
-//     return null
-// }
 
-blogRouter.get('/', async (request, response) => {
+
+blogRouter.get('/', async(request, response) => {
     const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
     response.json(blogs)
 })
 
-blogRouter.post('/', tokenExtractor, async (request, response) => {
-    // const decodedToken = jwt.verify(request.token, process.env.SECRET)
+blogRouter.post('/', tokenExtractor, async(request, response) => {
 
-    // if (!decodedToken.id) {
-    //     response.status(401).json({ error: 'token invalid' })
-    // }
     const user = await request.user
 
     const body = request.body
@@ -47,34 +37,35 @@ blogRouter.post('/', tokenExtractor, async (request, response) => {
 
 })
 
-blogRouter.put('/:id', async (request, response, error) => {
-    const id = request.params.id
+blogRouter.put('/:id', async(request, response) => {
     const body = request.body
+
     const blog = {
         title: body.title,
         author: body.author,
         url: body.url,
-        likes: body.likes + 1
+        likes: body.likes
     }
-    try {
-        const updatedNote = await Blog.findByIdAndUpdate(id, blog, { new: true })
-        response.json(updatedNote)
 
-    } catch (error) {
-        next(error)
-    }
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true }).populate('user', { username: 1, name: 1 })
+    response.json(updatedBlog)
 })
 
-blogRouter.delete('/:id', tokenExtractor, async (request, response) => {
+blogRouter.delete('/:id', tokenExtractor, async(request, response) => {
+    console.log("in the delete function")
     const { id } = request.params
     const blogToDelete = await Blog.findById(id)
     const userId = blogToDelete.user
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (userId.toString === decodedToken.id.toString) {
+    if (userId.toString() === decodedToken.id.toString()) {
+        console.log('yaha ander')
         await Blog.deleteOne({ _id: id })
+        console.log('deleted')
         response.status(203).end()
+    } else {
+        response.status(400).json({ error: "different user" })
+
     }
-    response.status(400).json({ error: "different user" })
 })
 
 
