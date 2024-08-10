@@ -1,4 +1,6 @@
 require("dotenv").config();
+const path = require('path');
+
 const express = require('express');
 const cors = require('cors');
 const passport = require("passport");
@@ -25,11 +27,13 @@ app.use(passport.session());
 // Enable CORS
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: "http://localhost:5173",
 		methods: "GET,POST,PUT,DELETE",
 		credentials: true,
 	})
 );
+app.use(express.static(path.join(__dirname, 'dist')));
+
 
 // Use authentication routes
 app.use("/auth", authRoute);
