@@ -4,8 +4,8 @@ const User = require('./models/User'); // Adjust the path as needed
 const { v4: uuidv4 } = require('uuid');
 
 passport.use(new GoogleStrategy({
-    clientID: '957284783356-lrddef6a5lgav3bnvp205j2osn1fplvd.apps.googleusercontent.com',
-    clientSecret: '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',
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     callbackURL: 'auth/google/callback',
 },
     async (accessToken, refreshToken, profile, done) => {
