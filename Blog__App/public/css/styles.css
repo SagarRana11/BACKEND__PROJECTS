@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
-:root {
+* {
+    color: var(--gray-light);
+}
+
+ :root {
     --black: #1c1c1c;
     --gray: #7E7E7E;
     --gray-light: #E4E4E4;
@@ -15,25 +19,30 @@ body {
     font-family: 'Poppins', sans-serif;
     color: var(--black);
     font-size: var(--font-size-base);
-    background-color: #FAF5EE;
-    background-image: url("/img/img-noise-361x370.png");
+    background-color: #0a0a0a;
     margin: 0;
 }
 
 a {
-    color: var(--black);
+    color: var(--gray-light);
 }
 
 h1 {
     font-size: var(--font-size-xl);
+    margin: 0px;
+    padding: 0px;
 }
 
 h2 {
     font-size: var(--font-size-lg);
+    margin: 0px;
+    padding: 0px;
 }
 
 h3 {
     font-size: var(--font-size-md);
+    margin: 0px;
+    padding: 0px;
 }
 
 input[type="text"],
@@ -75,9 +84,15 @@ img {
 /* Layout */
 
 .container {
-    max-width: 982px;
+    /* max-width: 9px; */
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 0 auto;
-    padding: 0 10px;
+    /* padding: 0 10px; */
 }
 
 .main {
@@ -98,12 +113,8 @@ img {
 /* Main Header */
 
 .header {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: "logo button" "menu menu";
-    padding-top: 10px;
+    display: flex;
+    width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -125,9 +136,19 @@ img {
 }
 
 .header__nav {
-    justify-content: center;
+    z-index: 1000;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    height: 10vh;
     display: flex;
-    grid-area: menu;
+    align-items: center;
+    justify-content: space-evenly;
+    & a {
+        text-decoration: none;
+        color: black;
+    }
 }
 
 .header__logo,
@@ -164,14 +185,21 @@ img {
 /* Header -> Navigation */
 
 .header__nav ul {
+    z-index: 1001;
     list-style-type: none;
     display: flex;
-    gap: 1rem;
+    gap: 2.4rem;
     font-weight: 600;
     padding: 0;
 }
 
+.header__nav ul li a {
+    cursor: pointer;
+}
+
 .header__nav ul a {
+    font-size: 22px;
+    font-weight: 700;
     padding: 10px;
     text-decoration: none;
 }
@@ -188,13 +216,17 @@ img {
 /* Author - HomePage */
 
 .author {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 10px 0;
     text-align: center;
 }
 
 .author__heading {
     margin-top: 10px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .author__body {
@@ -294,10 +326,13 @@ img {
 }
 
 .admin-post-controls form {
+    visibility: hidden;
+    margin-top: 10px;
     display: inline-block;
 }
 
 .admin-post-controls .btn {
+    visibility: hidden;
     display: inline-block;
     background-color: var(--black);
     border-radius: 2px;
@@ -364,8 +399,10 @@ a {
 }
 
 .admin-lis {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     font-size: 18px;
     cursor: pointer;
     transition: filter 0.1s;
@@ -455,4 +492,393 @@ textarea {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.admin-post {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.admin-lis {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+}
+
+.projectThumbnail {
+    height: 230px;
+    border-radius: 5px;
+}
+
+.project-details-box {
+    margin-top: 10px;
+    /* display: flex;
+    justify-content: space-around; */
+}
+
+.proj-name {
+    display: flex;
+    justify-content: center;
+}
+
+.skills {
+    text-align: center;
+}
+
+.section-margin {
+    margin-top: 8rem;
+}
+
+section {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.body {
+    display: flex;
+    flex-direction: row;
+}
+
+.body img {
+    height: 100px;
+}
+
+.body div {
+    display: flex;
+    flex-direction: column;
+}
+
+.skills .body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.skills .body .img {
+    height: 8rem;
+    aspect-ratio: 1 / 1;
+}
+
+.waviy {
+    position: relative;
+    font-size: 2em;
+    color: #161515;
+    -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    animation: wave 1.5s infinite ease-in-out;
+}
+
+@keyframes wave {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+
+/* Container styling for the heading */
+
+.heading {
+    text-align: center;
+    margin-top: 50px;
+    /* Add some space at the top */
+    position: relative;
+    /* To position the second name over the first one */
+}
+
+
+/* Styling for the static name */
+
+
+/* this is about css */
+
+.landing-page {
+    margin-top: 50px;
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.landing-page div {
+    margin: 0px;
+    padding: 0px;
+}
+
+.landing-page h1,
+.landing-page h2 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.sub-heading {
+    padding-bottom: 5px;
+}
+
+.bodyA {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0px;
+    /* margin-top: 100px; */
+}
+
+.bodyA p {
+    text-align: start;
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-id {
+    display: flex;
+    width: 100%;
+    padding-bottom: 100px;
+    justify-content: space-between;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.image-container {
+    & img {
+        width: 20vw;
+        border-radius: 50%;
+        filter: drop-shadow(0 0 15px rgb(214, 219, 193));
+    }
+    @media screen and (max-width: 920px) {
+        display: none;
+        /* Corrected typo from "dislay" to "display" */
+    }
+}
+
+.profile-image {
+    width: 250px;
+    border-radius: 50%;
+}
+
+#scroll-progress {
+    position: fixed;
+    width: 0%;
+    height: 5px;
+    background: yellow;
+    z-index: 100;
+}
+
+.social-links {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 3.3rem;
+}
+
+.social-links div a img {
+    width: 60px;
+}
+
+.name-container {
+    & .social-links {
+        @media screen and (min-width: 400px) {
+            gap: 2rem;
+        }
+    }
+}
+
+.project-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.card-container {
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.card {
+    width: 290px;
+    height: 365px;
+    border: 2px white solid;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 80%;
+}
+
+.content h2 {
+    font-size: 30px;
+    font-weight: 800;
+    text-decoration: underline;
+}
+
+.content p {
+    font-size: 18px;
+    color: #bef369;
+    font-weight: 600;
+}
+
+.content a {
+    text-decoration: underline;
+}
+
+.card-container {
+    @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+    }
+}
+
+.project-container {
+    @media screen and (max-width: 550px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+.all-projects {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(350px, 1fr));
+    /* 4 columns with min width 350px */
+    gap: 16px;
+    /* Space between grid items */
+    padding: 16px;
+    /* Centers the grid horizontally */
+    /* Centers the grid vertically */
+}
+
+.theme {
+    min-width: 220px;
+    /* Minimum width */
+    max-width: 220px;
+    /* Maximum width */
+    min-height: 280px;
+    /* Minimum height */
+    max-height: 280px;
+    /* Maximum height */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 1400px) {
+    .all-projects {
+        grid-template-columns: repeat(2, minmax(350px, 1fr));
+        /* 2 columns */
+    }
+}
+
+@media (max-width: 700px) {
+    .all-projects {
+        grid-template-columns: 1fr;
+        /* Single column */
+    }
+}
+
+.theme {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mern {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.mern img {
+    width: 100px;
+}
+
+.mainPro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardee {
+    width: 220px;
+    height: 320px;
+    perspective: 1000px;
+    /* Adds depth for 3D effect */
+}
+
+.facee {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    /* Hides the back side when flipped */
+    transition: transform 0.5s;
+    /* Smooth transition for flipping */
+}
+
+.front {
+    background-color: #0c0c0c;
+    /* Add your front content styles here */
+}
+
+.back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #030303;
+    transform: rotateY(180deg);
+    /* Initial back face rotated */
+    /* Add your back content styles here */
+}
+
+
+/* Flip the card on hover */
+
+.cardee:hover .front {
+    transform: rotateY(180deg);
+}
+
+.cardee:hover .back {
+    transform: rotateY(360deg);
+    /* This makes the back face appear */
+}
+
+.fullStackProjects {
+    display: flex;
+    flex-direction: column;
+}
+
+.fullStackProjects a {
+    margin-bottom: 20px;
 }

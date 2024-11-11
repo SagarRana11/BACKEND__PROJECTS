@@ -1,20 +1,22 @@
 <header class="header">
-    <a href="/" class="header__logo">Sagar.me</a>
 
     <nav class="header__nav">
         <ul>
             <li>
-                <a href="/" class="">Home</a>
+                <a href="/" class="">About</a>
             </li>
             <li>
-                <a href="/projects" class="">Projects</a>
+                <a onclick="scrollToSection()" class="">Skills</a>
             </li>
             <li>
-                <a href="/contact" class="">Contact</a>
+                <a onclick="scrollToSectionB()" class="">Projects</a>
             </li>
+
         </ul>
     </nav>
-    <div class="header__button">
+
+    <div id="scroll-progress" style="width: 0%;"></div>
+    <!-- <div class="header__button">
         <button class="searchBtn" aria-expanded="">
             Search 
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,5 +24,21 @@
             <path d="M14.875 14.875L11.7938 11.7938" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>   
         </button>
-    </div>
+    </div> -->
 </header>
+
+<script>
+    function scrollToSection() {
+        const targetSection = document.getElementById("skills");
+        targetSection.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    function scrollToSectionB() {
+        const targetSection = document.getElementById("projets");
+        targetSection.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+</script>

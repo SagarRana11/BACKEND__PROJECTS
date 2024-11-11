@@ -12,6 +12,7 @@ const jwtSecret = process.env.JWT_SECRET
  * CHECK LOGIN
  */
 
+
 const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
 
@@ -46,7 +47,7 @@ router.get("/admin", async (req, res) => {
     try {
         const locals = {
             title: "Admin",
-            description: "Simple Blog created By Sagar"
+            description: "Simple Blog App created By Sagar"
         }
         res.render('admin/index', { locals, layout: adminLayout });
     } catch (error) {
@@ -100,7 +101,7 @@ router.get("/dashboard", authMiddleware, async (req, res) => {
     try {
         const locals = {
             title: "Dashboard",
-            description: "Simple Blog created with NODEJS"
+            description: "Simple Blog App"
         }
         const data = await Post.find();
         res.render('admin/dashboard', { locals, data, layout: adminLayout })

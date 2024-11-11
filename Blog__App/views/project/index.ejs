@@ -1,23 +1,116 @@
-<div class="projectHeader">
-    <h1>Projects</h1>
+<!-- <div class="projectHeader">
+    <h2>Projects</h2>
     <a href="/add-project" class="button">+ Add New Project</a>
 
-</div>
+</div> -->
 
-<ul class="admin-post">
+<!-- <ul class="admin-post">
     <% data.forEach(project =>{ %>
         <li class="admin-lis">
-            <a href="/project/<%= project._id  %>">
-                <%= project.title %>&nearr;
+            <% console.log(project.imageURL) %>
+                <img class="projectThumbnail" src="../<%=project.imageURL  %>" alt="img">
+                <div class="project-details-box">
+                    <a class="proj-name" href="/project/<%= project._id  %>">
+                        <%= project.title %>&nearr;
 
-            </a>
-            <div class="admin-post-controls">
-                <a href="/edit-project/<%= project._id %>" class="btn">Edit</a>
-                <form action="/delete-project/<%= project._id %>?_method=DELETE" method="POST">
-                    <input type="submit" value="DELETE" class="btn">
-                </form>
-            </div>
+                    </a>
+                    <div class="admin-post-controls">
+                        <a href="/edit-project/<%= project._id %>" class="btn">Edit</a>
+                        <form action="/delete-project/<%= project._id %>?_method=DELETE" method="POST">
+                            <input type="submit" value="DELETE" class="btn">
+                        </form>
+                    </div>
+                </div>
+
         </li>
 
         <% })  %>
-</ul>
+</ul> -->
+<br>
+<br>
+
+
+<div class="mainPro">
+    <h3 class="waviy">
+        <span style="--i: 1">P</span>
+        <span style="--i: 2">R</span>
+        <span style="--i: 3">O</span>
+        <span style="--i: 4">J</span>
+        <span style="--i: 5">E</span>
+        <span style="--i: 6">C</span>
+        <span style="--i: 7">T</span>
+        <span style="--i: 8">S</span>
+    </h3>
+    <br>
+    <br>
+
+    <section class="all-projects">
+
+        <div class="theme">
+            <img src="img/javascript.png">
+            <a href="https://github.com/SagarRana11/JSProjectss">
+                <h2>JavaScript</h2>
+            </a>
+        </div>
+
+        <div class="theme">
+            <img src="img/react.png">
+            <a href="https://github.com/SagarRana11/React">
+                <h2>React</h2>
+            </a>
+
+        </div>
+
+        <div class="theme">
+            <img src="img/node.png">
+            <a href="https://github.com/SagarRana11/BACKEND__PROJECTS">
+                <h2>NodeJs</h2>
+            </a>
+
+        </div>
+
+
+
+
+        <div class="cardee">
+            <div class="facee front">
+
+                <div class="theme">
+                    <div class="mern">
+                        <img src="img/mongo.png">
+                        <img src="img/express.png">
+                        <img src="img/react.png">
+                        <img src="img/node.png">
+
+                    </div>
+                    <br>
+                    <a href="https://github.com/SagarRana11/Frontend_Note_App">
+                        <h2>Mern</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="facee back">
+                <div class="fullStackProjects">
+                    <a href="https://github.com/SagarRana11/Frontend_Note_App">
+                        <h3>NoteApp &nearr;</h3>
+                    </a>
+
+                    <a href="https://github.com/SagarRana11/BACKEND__PROJECTS/tree/main/Blog_List_App">
+                        <h3>Blogging App &nearr;</h3>
+                    </a>
+
+                    <a href="https://github.com/SagarRana11/BACKEND__PROJECTS/tree/main/Blog__App">
+                        <h3>Portfolio &nearr;</h3>
+                    </a>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+</div>
