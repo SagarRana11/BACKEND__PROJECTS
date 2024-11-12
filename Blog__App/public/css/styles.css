@@ -882,3 +882,10 @@ section {
 .fullStackProjects a {
     margin-bottom: 20px;
 }
+
+.mernCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
